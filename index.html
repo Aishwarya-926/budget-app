@@ -163,15 +163,15 @@
         <!-- 1. Header & Balance -->
         <div class="card balance-card full-width">
             <div class="balance-title">Current Balance</div>
-            <div class="balance-amount" id="balance">$0.00</div>
+            <div class="balance-amount" id="balance">₹0.00</div>
             <div class="inc-exp-container">
                 <div>
                     <span style="font-size: 0.8rem">INCOME</span><br>
-                    <span id="money-plus" class="money plus">+$0.00</span>
+                    <span id="money-plus" class="money plus">+₹0.00</span>
                 </div>
                 <div style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 20px;">
                     <span style="font-size: 0.8rem">EXPENSE</span><br>
-                    <span id="money-minus" class="money minus">-$0.00</span>
+                    <span id="money-minus" class="money minus">-₹0.00</span>
                 </div>
             </div>
         </div>
@@ -187,7 +187,7 @@
                 
                 <div class="form-control">
                     <label>Amount (Negative = Expense, Positive = Income)</label>
-                    <input type="number" id="amount" placeholder="-50 or 200" required step="0.01">
+                    <input type="number" id="amount" placeholder="-500 or 20000" required step="1">
                 </div>
 
                 <div class="form-control">
@@ -196,7 +196,7 @@
                         <option value="Food">🍔 Food</option>
                         <option value="Transport">🚗 Transport</option>
                         <option value="Shopping">🛍️ Shopping</option>
-                        <option value="Bills">🧾 Bills</option>
+                        <option value="Bills">🧾 Bills/Rent</option>
                         <option value="Income">💰 Income</option>
                         <option value="Other">✨ Other</option>
                     </select>
@@ -242,7 +242,12 @@
     // --- Functions ---
 
     function formatMoney(number) {
-        return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        // Changed to 'en-IN' for Indian Rupee Formatting (e.g. 1,50,000)
+        return number.toLocaleString('en-IN', { 
+            style: 'currency', 
+            currency: 'INR',
+            maximumFractionDigits: 2
+        });
     }
 
     function addTransaction(e) {
@@ -355,7 +360,6 @@
 
         // 5. Draw Chart
         if(expenses.length === 0) {
-            // If no data, draw an empty gray circle or just return
              return; 
         }
 
